@@ -1,0 +1,10 @@
+#include <stdio.h>
+
+main() {
+  pid_t pid = fork();
+  if (pid!= 0) {
+    int wstatus = 0;
+      if (waitpid(pid, &wstats, 0) == -1) {
+        exit(EXIT_FAILURE) {
+          printf*
+             
