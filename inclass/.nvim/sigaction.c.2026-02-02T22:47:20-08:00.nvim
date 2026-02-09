@@ -1,0 +1,10 @@
+#defiine _POSIX_C_SOURCE 200809
+#include <signal.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include 
+int main() {
+  
+  sigaction()
+    printf("Ctrl C pressed");
+
