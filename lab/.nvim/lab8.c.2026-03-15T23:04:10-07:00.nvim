@@ -1,0 +1,248 @@
+~/units/04-long-assignments/a10-VincentSuen6❯ record
+Recording started.
+[recording] ~/units/04-long-assignments/a10-VincentSuen6❯ ls
+build  CMakeLists.txt  include  README.md  src
+[recording] ~/units/04-long-assignments/a10-VincentSuen6❯ rm -rf build
+[recording] ~/units/04-long-assignments/a10-VincentSuen6❯ cd MapReduce.c
+cd: no such file or directory: MapReduce.c
+[recording] ~/units/04-long-assignments/a10-VincentSuen6❯ ls
+CMakeLists.txt  include  README.md  src
+[recording] ~/units/04-long-assignments/a10-VincentSuen6❯ cd src
+[recording] ~/units/04-long-assignments/a10-VincentSuen6/src❯ cd MapReduce.c
+cd: not a directory: MapReduce.c
+[recording] ~/units/04-long-assignments/a10-VincentSuen6/src❯ nvim MapReduce.c
+[recording] ~/units/04-long-assignments/a10-VincentSuen6/src❯ cd ..
+[recording] ~/units/04-long-assignments/a10-VincentSuen6❯ cmake -S . -B build
+-- The C compiler identification is Clang 18.1.3
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/clang - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/cmpt201/units/04-long-assignments/a10-VincentSuen6/build
+[recording] ~/units/04-long-assignments/a10-VincentSuen6❯ cmake --build build
+[ 10%] Building C object CMakeFiles/mapreduce.dir/src/main.c.o
+/home/cmpt201/units/04-long-assignments/a10-VincentSuen6/src/main.c:3:14: warning: unused parameter 'argc' [-Wunused-parameter]
+    3 | int main(int argc, char *argv[]) {
+      |              ^
+/home/cmpt201/units/04-long-assignments/a10-VincentSuen6/src/main.c:3:26: warning: unused parameter 'argv' [-Wunused-parameter]
+    3 | int main(int argc, char *argv[]) {
+      |                          ^
+2 warnings generated.
+[ 20%] Building C object CMakeFiles/mapreduce.dir/src/map_and_reduce.c.o
+[ 30%] Building C object CMakeFiles/mapreduce.dir/src/number_of_mappers_reducers.c.o
+/home/cmpt201/units/04-long-assignments/a10-VincentSuen6/src/number_of_mappers_reducers.c:93:37: warning: unused parameter 'in_kv' [-Wunused-parameter]
+   93 | void nom_map(const struct mr_in_kv *in_kv) { thread_count(); }
+      |                                     ^
+/home/cmpt201/units/04-long-assignments/a10-VincentSuen6/src/number_of_mappers_reducers.c:95:41: warning: unused parameter 'inter_kv' [-Wunused-parameter]
+   95 | void nom_reduce(const struct mr_out_kv *inter_kv) {}
+      |                                         ^
+/home/cmpt201/units/04-long-assignments/a10-VincentSuen6/src/number_of_mappers_reducers.c:103:41: warning: unused parameter 'inter_kv' [-Wunused-parameter]
+  103 | void nor_reduce(const struct mr_out_kv *inter_kv) { thread_count(); }
+      |                                         ^
+3 warnings generated.
+[ 40%] Building C object CMakeFiles/mapreduce.dir/src/test.c.o
+[ 50%] Building C object CMakeFiles/mapreduce.dir/src/free_output.c.o
+[ 60%] Building C object CMakeFiles/mapreduce.dir/src/single_map.c.o
+/home/cmpt201/units/04-long-assignments/a10-VincentSuen6/src/single_map.c:22:40: warning: unused parameter 'inter_kv' [-Wunused-parameter]
+   22 | void sm_reduce(const struct mr_out_kv *inter_kv) {}
+      |                                        ^
+1 warning generated.
+[ 70%] Building C object CMakeFiles/mapreduce.dir/src/single_reduce.c.o
+[ 80%] Building C object CMakeFiles/mapreduce.dir/src/advanced_map_reduce.c.o
+[ 90%] Building C object CMakeFiles/mapreduce.dir/src/partition.c.o
+/home/cmpt201/units/04-long-assignments/a10-VincentSuen6/src/partition.c:41:41: warning: unused parameter 'inter_kv' [-Wunused-parameter]
+   41 | void pin_reduce(const struct mr_out_kv *inter_kv) {}
+      |                                         ^
+1 warning generated.
+[100%] Linking C executable mapreduce
+[100%] Built target mapreduce
+[recording] ~/units/04-long-assignments/a10-VincentSuen6❯ cd build
+[recording] ~/units/04-long-assignments/a10-VincentSuen6/build❯ ./mapreduce
+Score: 10, Success cases: 1/25
+Score: 20, Success cases: 2/25
+Score: 35, Success cases: 3/25
+Score: 36, Success cases: 4/25
+Score: 37, Success cases: 5/25
+Score: 38, Success cases: 6/25
+Score: 39, Success cases: 7/25
+Score: 40, Success cases: 8/25
+Score: 41, Success cases: 9/25
+Score: 42, Success cases: 10/25
+Score: 43, Success cases: 11/25
+Score: 44, Success cases: 12/25
+Score: 45, Success cases: 13/25
+Score: 48, Success cases: 14/25
+Score: 51, Success cases: 15/25
+Score: 54, Success cases: 16/25
+Score: 57, Success cases: 17/25
+Score: 60, Success cases: 18/25
+Score: 75, Success cases: 19/25
+Score: 79, Success cases: 20/25
+Score: 83, Success cases: 21/25
+Score: 87, Success cases: 22/25
+Score: 91, Success cases: 23/25
+Score: 95, Success cases: 24/25
+Score: 100, Success cases: 25/25
+[recording] ~/units/04-long-assignments/a10-VincentSuen6/build❯ exit
+Recording done.
+~/units/04-long-assignments/a10-VincentSuen6❯ git add .
+~/units/04-long-assignments/a10-VincentSuen6❯ git commit -m "Assignment 10 complete"
+[main dd6677a] Assignment 10 complete
+ 69 files changed, 6918 insertions(+), 336 deletions(-)
+ create mode 100644 .nvim/CMakeLists.txt.2026-03-13T23:29:31-07:00.hash
+ create mode 100644 .nvim/CMakeLists.txt.2026-03-13T23:29:31-07:00.nvim
+ create mode 100644 .nvim/CMakeLists.txt.2026-03-13T23:31:08-07:00.hash
+ create mode 100644 .nvim/CMakeLists.txt.2026-03-13T23:31:08-07:00.nvim
+ create mode 100644 .nvim/CMakeLists.txt.2026-03-13T23:31:09-07:00.hash
+ create mode 100644 .nvim/CMakeLists.txt.2026-03-13T23:31:09-07:00.nvim
+ create mode 100644 .nvim/CMakeLists.txt.2026-03-13T23:31:26-07:00.hash
+ create mode 100644 .nvim/CMakeLists.txt.2026-03-13T23:31:26-07:00.nvim
+ create mode 100644 .nvim/CMakeLists.txt.2026-03-13T23:31:55-07:00.hash
+ create mode 100644 .nvim/CMakeLists.txt.2026-03-13T23:31:55-07:00.nvim
+ create mode 100644 .nvim/CMakeLists.txt.2026-03-13T23:32:13-07:00.hash
+ create mode 100644 .nvim/CMakeLists.txt.2026-03-13T23:32:13-07:00.nvim
+ create mode 100644 .nvim/advanced_map_reduce.c.2026-03-13T23:28:51-07:00.hash
+ create mode 100644 .nvim/advanced_map_reduce.c.2026-03-13T23:28:51-07:00.nvim
+ create mode 100644 .nvim/advanced_map_reduce.c.2026-03-13T23:28:52-07:00.hash
+ create mode 100644 .nvim/advanced_map_reduce.c.2026-03-13T23:28:52-07:00.nvim
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.0.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.0.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.101712.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.101712.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.1051176.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.1051176.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.1076.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.1076.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.131787.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.131787.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.16459.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.16459.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.2082.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.2082.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.2115029.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.2115029.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.291021.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.291021.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.3179897.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.3179897.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.4157.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.4157.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.4202613.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.4202613.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.5262470.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.5262470.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.540513.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.540513.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.6295069.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.6295069.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.7372497.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.7372497.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.8195.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.8195.snapshot
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.95684.hash
+ create mode 100644 .record/input.0.2026-03-13T23:51:19.247420.95684.snapshot
+ create mode 100644 src/.nvim/MapReduce.c.2026-03-13T23:53:25-07:00.hash
+ create mode 100644 src/.nvim/MapReduce.c.2026-03-13T23:53:25-07:00.nvim
+ create mode 100644 src/.nvim/advanced_map_reduce.c.2026-03-13T23:39:46-07:00.hash
+ create mode 100644 src/.nvim/advanced_map_reduce.c.2026-03-13T23:39:46-07:00.nvim
+ create mode 100644 src/.nvim/advanced_map_reduce.c.2026-03-13T23:40:49-07:00.hash
+ create mode 100644 src/.nvim/advanced_map_reduce.c.2026-03-13T23:40:49-07:00.nvim
+ create mode 100644 src/.nvim/map_and_reduce.c.2026-03-13T23:49:28-07:00.hash
+ create mode 100644 src/.nvim/map_and_reduce.c.2026-03-13T23:49:28-07:00.nvim
+ create mode 100644 src/.nvim/map_and_reduce.c.2026-03-13T23:49:40-07:00.hash
+ create mode 100644 src/.nvim/map_and_reduce.c.2026-03-13T23:49:40-07:00.nvim
+ create mode 100644 src/.nvim/map_and_reduce.c.2026-03-13T23:50:24-07:00.hash
+ create mode 100644 src/.nvim/map_and_reduce.c.2026-03-13T23:50:24-07:00.nvim
+ create mode 100644 src/.nvim/map_and_reduce.c.2026-03-13T23:50:36-07:00.hash
+ create mode 100644 src/.nvim/map_and_reduce.c.2026-03-13T23:50:36-07:00.nvim
+ create mode 100644 src/advanced_map_reduce.c
+~/units/04-long-assignments/a10-VincentSuen6❯ git push
+Enumerating objects: 68, done.
+Counting objects: 100% (68/68), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (63/63), done.
+Writing objects: 100% (63/63), 218.34 KiB | 2.21 MiB/s, done.
+Total 63 (delta 20), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (20/20), completed with 3 local objects.
+To github.com:SFU-CMPT-201/a10-VincentSuen6.git
+   65e4610..dd6677a  main -> main
+~/units/04-long-assignments/a10-VincentSuen6❯ ./minimum_checker
+zsh: no such file or directory: ./minimum_checker
+~/units/04-long-assignments/a10-VincentSuen6❯ record
+Recording started.
+[recording] ~/units/04-long-assignments/a10-VincentSuen6❯ ./minimum_checker
+zsh: no such file or directory: ./minimum_checker
+[recording] ~/units/04-long-assignments/a10-VincentSuen6❯ cd src
+[recording] ~/units/04-long-assignments/a10-VincentSuen6/src❯ ./minimum_checker
+zsh: no such file or directory: ./minimum_checker
+[recording] ~/units/04-long-assignments/a10-VincentSuen6/src❯ minimum_checker
+Invalid record files.
+nvim validation failed.
+Checker completed. Make sure to check all error messages. No additional output indicates all basic checks have passed.
+[recording] ~/units/04-long-assignments/a10-VincentSuen6/src❯ cd ..
+[recording] ~/units/04-long-assignments/a10-VincentSuen6❯ minimum_checker
+Checker completed. Make sure to check all error messages. No additional output indicates all basic checks have passed.
+[recording] ~/units/04-long-assignments/a10-VincentSuen6❯ exit
+Recording done.
+~/units/04-long-assignments/a10-VincentSuen6❯ cd ..
+~/units/04-long-assignments❯ rm -rf a10-VincentSuen6
+~/units/04-long-assignments❯ git clone https://github.com/SFU-CMPT-201/a10-VincentSuen6.git
+Cloning into 'a10-VincentSuen6'...
+Username for 'https://github.com': ^C
+~/units/04-long-assignments❯ git@github.com:SFU-CMPT-201/a10-VincentSuen6.git
+zsh: no such file or directory: git@github.com:SFU-CMPT-201/a10-VincentSuen6.git
+~/units/04-long-assignments❯ git clone git@github.com:SFU-CMPT-201/a10-VincentSuen6.git
+Cloning into 'a10-VincentSuen6'...
+remote: Enumerating objects: 524, done.
+ lab8.c
+#include <pthread.h>
+    3 #include <stdio.h>
+    4 #include <stdlib.h>
+    5 #include <uthash.h>
+    6 #define THREAD_COUNT 3
+    7 typedef const char *word_t;
+    8
+    9 typedef struct {
+   10 ┆ word_t word;
+   11 ┆ size_t count;
+   12 ┆ UT_hash_handle hh;
+   13 } word_count_entry_t;
+   14
+   15 word_count_entry_t *create_entry(word_t, size_t);
+   16
+   17 typedef word_count_entry_t *count_map_t;
+   18
+   19 typedef struct {
+   20 ┆ count_map_t *map;
+   21 ┆ word_t *words;
+   22 ┆ size_t num_words;
+   23 ┆ pthread_mutex_t *lock;
+   24 } count_thread_args_t;
+   25
+   26 count_thread_args_t *pack_args(count_map_t *map, word_t *words,
+   27 ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆  size_t num_words, pthread_mutex_t *lock);
+   28
+   29 static void add_word_counts_in_chunk(count_map_t *map, word_t *words,
+   30 ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆  size_t num_words, pthread_mutex_t *lock) {
+   33 ┆
+   34 ┆ for (size_t i = 0; i < num_words; i++) {
+   35 ┆ ┆ word_count_entry_t *w = NULL;
+   36 ┆ ┆ HASH_FIND_STR(*map, words[i], w);
+   37 ┆ ┆
+   38 ┆ ┆ if (w) {
+   39 ┆ ┆ ┆ w->count++;
+   40 ┆ ┆ } else {
+   41 ┆ ┆ ┆ w = create_entry(words[i], 1);
+   42 ┆ ┆ ┆ HASH_ADD_STR(*map, word, w);
+   43 ┆ ┆ }
+   44 ┆ }
+   45 }
+   46
+   47 static void *counter_thread_func(void *);
+   48
+   49 static count_map_t count_words_parallel(word_t *words, size_t num_words) {
+   56 ┆
+   57 ┆ count_map_t map = NULL;
