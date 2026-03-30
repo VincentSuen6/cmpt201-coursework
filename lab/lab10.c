@@ -1,72 +1,4 @@
-/*
- * lab10.c — Lab 10: Socket Programming with Multiple Clients
- * Contains: client.c followed by server.c
- *
- * ══════════════════════════════════════════════════
- * Questions answered at the top of server.c section:
- * ══════════════════════════════════════════════════
- *
- * ── Understanding the Client ──
- *
- * 1. How is the client sending data to the server? What protocol?
- *    The client uses TCP (SOCK_STREAM) over IPv4. It calls connect() to
- *    establish a connection to 127.0.0.1:8001, then sends data with write().
- *
- * 2. What data is the client sending to the server?
- *    It sends 5 fixed strings: "Hello", "Apple", "Car", "Green", "Dog".
- *    Each is copied into a BUF_SIZE (1024-byte) buffer with strncpy (zero-
- *    padded), then written as a full 1024-byte chunk. One message per second.
- *
- * ── Understanding the Server ──
- *
- * 1. Explain the argument that the run_acceptor thread is passed as an argument.
- *    It receives a pointer to a struct acceptor_args, which holds:
- *      - run (atomic_bool): loop-control flag; set to false to stop accepting.
- *      - list_handle: pointer to the shared linked-list that stores messages.
- *      - list_lock: pointer to the mutex that guards the list.
- *
- * 2. How are received messages stored?
- *    In a singly-linked list. Each message is heap-allocated into a
- *    list_node whose `data` field holds a malloc'd BUF_SIZE copy of the
- *    message. Nodes are appended at the tail tracked by list_handle->last.
- *
- * 3. What does main() do with the received messages?
- *    After all expected messages arrive, main() calls collect_all(), which
- *    walks the list, prints each message, frees each node and its data, and
- *    returns the total count. It then verifies the count matches the expected
- *    total (MAX_CLIENTS * NUM_MSG_PER_CLIENT).
- *
- * 4. How are threads used in this sample code?
- *    One acceptor thread (run_acceptor) listens for new TCP connections.
- *    For every client that connects, the acceptor spawns a dedicated client
- *    thread (run_client) that reads messages from that socket in a loop.
- *    The main thread busy-waits (with mutex) until enough messages have been
- *    collected, then signals the acceptor to stop.
- *
- * ── Non-blocking sockets ──
- *
- * How are sockets made non-blocking?
- *    set_non_blocking(fd) retrieves current file-descriptor flags with
- *    fcntl(fd, F_GETFL, 0), then sets the O_NONBLOCK bit with
- *    fcntl(fd, F_SETFL, flags | O_NONBLOCK).
- *
- * What sockets are made non-blocking?
- *    (a) The listening server socket (sfd) inside run_acceptor().
- *    (b) Each accepted client socket (cfd) inside run_client().
- *
- * Why? What purpose does it serve?
- *    Without O_NONBLOCK, accept() and read() would block the calling thread
- *    indefinitely waiting for a connection/data. Both run_acceptor and
- *    run_client must periodically re-check their `run` flag to know when to
- *    stop. Non-blocking mode causes these calls to return immediately with
- *    errno EAGAIN/EWOULDBLOCK when there is nothing to do, so the while-loop
- *    can re-check `run` on every iteration without being stuck inside a
- *    blocking system call — enabling a clean, cooperative shutdown.
- */
 
-/* ================================================================
- *  client.c
- * ================================================================ */
 
 #include <arpa/inet.h>
 #include <stdio.h>
@@ -210,10 +142,6 @@ static void set_non_blocking(int fd) {
   }
 }
 
-/*
- * Append new_node to the tail of the list.
- * CALLER MUST HOLD list_lock.
- */
 static void add_to_list(struct list_handle *list_handle,
                         struct list_node   *new_node) {
   struct list_node *last_node = list_handle->last;
@@ -264,10 +192,6 @@ static void *run_client(void *args) {
       new_node->data = malloc(SERVER_BUF_SIZE);
       memcpy(new_node->data, msg_buf, SERVER_BUF_SIZE);
 
-      /*
-       * COMPLETED TODO:
-       * Lock the mutex then safely append the new node to the shared list.
-       */
       pthread_mutex_lock(cargs->list_lock);
       add_to_list(cargs->list_handle, new_node);
       pthread_mutex_unlock(cargs->list_lock);
@@ -327,17 +251,9 @@ static void *run_acceptor(void *args) {
 
   /* Signal every client thread to stop, then join. */
   for (int i = 0; i < num_clients; i++) {
-    /*
-     * COMPLETED TODO:
-     * Clear the run flag so run_client's while-loop exits.
-     */
+
     client_args[i].run = false;
 
-    /*
-     * COMPLETED TODO:
-     * Wait for the thread to finish.
-     * (The socket fd is closed inside run_client after the loop.)
-     */
     pthread_join(threads[i], NULL);
   }
 
@@ -368,12 +284,7 @@ int main(void) {
   };
   pthread_create(&acceptor_thread, NULL, run_acceptor, &aargs);
 
-  /*
-   * COMPLETED TODO:
-   * Busy-wait until we have received every expected message.
-   * The mutex is used to safely read list_handle.count, which client
-   * threads modify inside add_to_list() (also under the same mutex).
-   */
+
   const uint32_t expected = MAX_CLIENTS * NUM_MSG_PER_CLIENT;
   while (1) {
     pthread_mutex_lock(&list_mutex);
